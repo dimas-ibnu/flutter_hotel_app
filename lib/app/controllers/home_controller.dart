@@ -4,10 +4,15 @@ import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   var listHotels = <HotelDataModel>[].obs;
+  var selectedPage = 0.obs;
+
+  var isLoading = false.obs;
 
   getHotels() async {
-    await ApiService()
-        .getHotels()
-        .then((value) => listHotels.value = value.value!);
+    isLoading.value = true;
+    await ApiService().getHotels().then((value) {
+      listHotels(value.value ?? []);
+      isLoading(false);
+    });
   }
 }

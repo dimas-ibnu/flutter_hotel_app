@@ -1,29 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hotel_app/app/controllers/home_controller.dart';
 import 'package:flutter_hotel_app/app/data/services/api_service.dart';
-import 'package:flutter_hotel_app/app/ui/pages/home/components/horizontal_card_item.dart';
-import 'package:flutter_hotel_app/app/ui/pages/home/components/vertical_card_item.dart';
+import 'package:flutter_hotel_app/app/ui/pages/home/components/card_item_widget.dart';
 import 'package:flutter_hotel_app/app/ui/theme/theme_colors.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 
+import '../../global_widgets/bottom_navbar_widget.dart';
+
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+
+  final controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      body: ListView(
-        children: [
-          _topBar(),
-          const SizedBox(height: 10),
-          searchBar(),
-          sectionLabel("Nearby Your Location"),
-          listNearbyHotels(),
-          sectionLabel("Popular Destination"),
-          listPopularCardItem(),
-        ],
+      bottomNavigationBar: BottomNavbarWidget(),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          controller.getHotels();
+        },
+        child: ListView(
+          children: [
+            _topBar(),
+            const SizedBox(height: 10),
+            searchBar(),
+            sectionLabel("Nearby Your Location"),
+            listNearbyHotels(),
+            sectionLabel("Popular Destination"),
+            listPopularCardItem(),
+          ],
+        ),
       ),
     ));
   }
@@ -137,6 +146,9 @@ class HomePage extends StatelessWidget {
         _.controller?.getHotels();
       },
       builder: (_) {
+        if (_.isLoading.value) {
+          return const Center(child: CircularProgressIndicator());
+        }
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Padding(
@@ -144,7 +156,8 @@ class HomePage extends StatelessWidget {
             child: Row(
                 children: List.generate(
                     _.listHotels.length > 5 ? 5 : _.listHotels.length,
-                    (index) => VerticalCardItem(
+                    (index) => CardItemWidget(
+                          isVerticalCard: true,
                           data: _.listHotels[index],
                         ))),
           ),
@@ -160,11 +173,15 @@ class HomePage extends StatelessWidget {
         _.controller?.getHotels();
       },
       builder: (_) {
+        if (_.isLoading.value) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
         return Column(
             children: List.generate(
                 _.listHotels.length > 3 ? 3 : _.listHotels.length,
-                (index) => HorizontalCardItem(
-                      data: _.listHotels[index],
+                (index) => CardItemWidget(
+                      data: _.listHotels.reversed.toList()[index],
                     )));
       },
     );
