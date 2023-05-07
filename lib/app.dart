@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hotel_app/app/ui/pages/main/main_page.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'app/ui/pages/home/home_page.dart';
 import 'app/ui/theme/theme_colors.dart';
 
 class App extends StatelessWidget {

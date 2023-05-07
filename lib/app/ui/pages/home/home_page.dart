@@ -17,21 +17,21 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: RefreshIndicator(
-          onRefresh: () async {
-            controller.getHotels();
-          },
-          child: ListView(
-            children: [
-              _topBar(),
-              const SizedBox(height: 10),
-              searchBar(),
-              sectionLabel("Nearby Your Location"),
-              listNearbyHotels(),
-              sectionLabel("Popular Destination"),
-              listPopularCardItem(),
-            ],
-          ),
-        ));
+      onRefresh: () async {
+        controller.getHotels();
+      },
+      child: ListView(
+        children: [
+          _topBar(),
+          const SizedBox(height: 10),
+          searchBar(),
+          sectionLabel("Nearby Your Location"),
+          listNearbyHotels(),
+          sectionLabel("Popular Destination"),
+          listPopularCardItem(),
+        ],
+      ),
+    ));
   }
 
   Widget _topBar() {
@@ -39,16 +39,16 @@ class HomePage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
       child: Row(
         children: [
-          const Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 "Current Location",
                 style: TextStyle(color: ThemeColors.textColor),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Row(
-                children: [
+                children: const [
                   Icon(
                     IconlyBold.location,
                     color: ThemeColors.primaryColor,
@@ -72,7 +72,7 @@ class HomePage extends StatelessWidget {
             decoration: BoxDecoration(
                 border: Border.all(width: 0.5, color: ThemeColors.textColor),
                 borderRadius: BorderRadius.circular(8)),
-            child: const Stack(
+            child: Stack(
               children: [
                 Icon(IconlyBold.notification),
                 Positioned(
@@ -102,7 +102,7 @@ class HomePage extends StatelessWidget {
                 color: ThemeColors.primaryColor,
               ),
               onPressed: () {
-                ApiService().getHotels();
+                controller.getHotels();
               },
             ),
             prefixIcon: const Icon(
@@ -140,7 +140,7 @@ class HomePage extends StatelessWidget {
     return GetX<HomeController>(
       init: Get.put(HomeController()),
       initState: (_) {
-        _.controller?.getHotels();
+        // _.controller?.getHotels();
       },
       builder: (_) {
         if (_.isLoading.value) {
@@ -167,11 +167,13 @@ class HomePage extends StatelessWidget {
     return GetX<HomeController>(
       init: Get.put(HomeController()),
       initState: (_) {
-        _.controller?.getHotels();
+        // _.controller?.getHotels();
       },
       builder: (_) {
         if (_.isLoading.value) {
           return const Center(child: CircularProgressIndicator());
+        } else if (_.listHotels.isEmpty) {
+          return const Center(child: Text("No Data"));
         }
 
         return Column(
