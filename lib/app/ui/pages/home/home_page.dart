@@ -15,26 +15,23 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-      bottomNavigationBar: BottomNavbarWidget(),
-      body: RefreshIndicator(
-        onRefresh: () async {
-          controller.getHotels();
-        },
-        child: ListView(
-          children: [
-            _topBar(),
-            const SizedBox(height: 10),
-            searchBar(),
-            sectionLabel("Nearby Your Location"),
-            listNearbyHotels(),
-            sectionLabel("Popular Destination"),
-            listPopularCardItem(),
-          ],
-        ),
-      ),
-    ));
+    return Scaffold(
+        body: RefreshIndicator(
+          onRefresh: () async {
+            controller.getHotels();
+          },
+          child: ListView(
+            children: [
+              _topBar(),
+              const SizedBox(height: 10),
+              searchBar(),
+              sectionLabel("Nearby Your Location"),
+              listNearbyHotels(),
+              sectionLabel("Popular Destination"),
+              listPopularCardItem(),
+            ],
+          ),
+        ));
   }
 
   Widget _topBar() {

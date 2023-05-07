@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hotel_app/app/data/models/hotel_model.dart';
+import 'package:flutter_hotel_app/app/ui/pages/detail_hotel/detail_hotel_page.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 
@@ -14,94 +15,99 @@ class CardItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (isVerticalCard ?? false) {
-      return Container(
-        margin: const EdgeInsets.only(right: 20, bottom: 20, top: 10),
-        width: Get.width * 0.6,
+      return InkWell(
+        onTap: (){
+          Get.to(() => DetailHotelPage(data: data));
+        },
         child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: Colors.white,
-              boxShadow: const [
-                BoxShadow(
-                    blurRadius: 10,
-                    spreadRadius: 5,
-                    color: ThemeColors.secondaryColor,
-                    offset: Offset(2, 2))
-              ]),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
-                children: [
-                  Container(
-                      height: 200,
-                      decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: AssetImage("assets/images/image 1.png")),
-                          color: ThemeColors.textColor,
-                          borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(12)))),
-                  Positioned(
-                      top: 10,
-                      right: 10,
-                      child: Container(
-                          padding: const EdgeInsets.all(7),
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle, color: Colors.white),
-                          child:
-                              Icon(IconlyBold.heart, color: Colors.red[600])))
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          margin: const EdgeInsets.only(right: 20, bottom: 20, top: 10),
+          width: Get.width * 0.6,
+          child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: Colors.white,
+                boxShadow: const [
+                  BoxShadow(
+                      blurRadius: 10,
+                      spreadRadius: 5,
+                      color: ThemeColors.secondaryColor,
+                      offset: Offset(2, 2))
+                ]),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Stack(
                   children: [
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: Get.width * 0.3,
-                          child: Text(
-                            data.hotelName ?? '',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                        const Spacer(),
-                        Icon(
-                          IconlyBold.star,
-                          color: Colors.yellow[600],
-                        ),
-                        Text((data.rating ?? 0).toString())
-                      ],
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                        "${data.address?.streetAddress ?? ''}\n${data.address?.city ?? ''}",
-                        style: const TextStyle(
-                            fontSize: 12, color: ThemeColors.textColor)),
-                    const SizedBox(height: 5),
-                    RichText(
-                        text: TextSpan(
-                            style: const TextStyle(
-                                fontSize: 14,
-                                color: ThemeColors.primaryColor,
-                                fontWeight: FontWeight.w700),
-                            children: [
-                          TextSpan(text: "\$${data.rating ?? 0}"),
-                          const TextSpan(
-                              text: " /night",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  color: ThemeColors.textColor))
-                        ])),
+                    Container(
+                        height: 200,
+                        decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage("assets/images/image 1.png")),
+                            color: ThemeColors.textColor,
+                            borderRadius:
+                                BorderRadius.vertical(top: Radius.circular(12)))),
+                    Positioned(
+                        top: 10,
+                        right: 10,
+                        child: Container(
+                            padding: const EdgeInsets.all(7),
+                            decoration: const BoxDecoration(
+                                shape: BoxShape.circle, color: Colors.white),
+                            child:
+                                Icon(IconlyBold.heart, color: Colors.red[600])))
                   ],
                 ),
-              )
-            ],
+                Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: Get.width * 0.3,
+                            child: Text(
+                              data.hotelName ?? '',
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.w700),
+                            ),
+                          ),
+                          const Spacer(),
+                          Icon(
+                            IconlyBold.star,
+                            color: Colors.yellow[600],
+                          ),
+                          Text((data.rating ?? 0).toString())
+                        ],
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                          "${data.address?.streetAddress ?? ''}\n${data.address?.city ?? ''}",
+                          style: const TextStyle(
+                              fontSize: 12, color: ThemeColors.textColor)),
+                      const SizedBox(height: 5),
+                      RichText(
+                          text: TextSpan(
+                              style: const TextStyle(
+                                  fontSize: 14,
+                                  color: ThemeColors.primaryColor,
+                                  fontWeight: FontWeight.w700),
+                              children: [
+                            TextSpan(text: "\$${data.rating ?? 0}"),
+                            const TextSpan(
+                                text: " /night",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    color: ThemeColors.textColor))
+                          ])),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       );

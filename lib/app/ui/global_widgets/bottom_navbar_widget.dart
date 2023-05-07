@@ -1,18 +1,18 @@
 // create widget bottom navbar widget
 import 'package:flutter/material.dart';
+import 'package:flutter_hotel_app/app/controllers/main_controller.dart';
 import 'package:flutter_hotel_app/app/ui/theme/theme_colors.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 
-import '../../controllers/home_controller.dart';
 
 class BottomNavbarWidget extends StatelessWidget {
   const BottomNavbarWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetX<HomeController>(
-        init: Get.put(HomeController()),
+    return GetX<MainController>(
+        init: Get.put(MainController()),
         initState: (_) {},
         builder: (_) {
           return BottomNavigationBar(

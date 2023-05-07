@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   var listHotels = <HotelDataModel>[].obs;
-  var selectedPage = 0.obs;
 
   var isLoading = false.obs;
 
