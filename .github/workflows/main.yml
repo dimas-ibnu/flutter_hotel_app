@@ -23,11 +23,11 @@ jobs:
           with:
             flutter-version: "3.7.12"
         - run: flutter pub get
-        - run: flutter build apk debug --split-per-abi
+        - run: flutter build apk --split-per-abi
         - name: Upload APK
           uses: ncipollo/release-action@v1
           with:
             name: app
-            path: "build/app/outputs/apk/debug/*"
+            path: "build/app/outputs/flutter-apk/*"
             tag: v1.0.${{github.run_number}}
             token: ${{ secrets.TOKEN }}
